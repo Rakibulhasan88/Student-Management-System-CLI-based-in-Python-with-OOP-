@@ -104,9 +104,6 @@ def display_course_details():
         return
     courses[course_code].display_course_info(students)
 
-import json
-
-# ------------------- Class Definitions -------------------
 
 class Person:
     def __init__(self, name, age, address):
@@ -147,7 +144,7 @@ class Course:
         self.course_name = course_name
         self.course_code = course_code
         self.instructor = instructor
-        self.students = []  # List of Student IDs
+        self.students = [] 
 
     def add_student(self, student):
         if student.student_id not in self.students:
@@ -166,72 +163,6 @@ class Course:
         else:
             print("No students enrolled yet.")
 
-
-# ------------------- Data Storage -------------------
-
-students = {}
-courses = {}
-
-# ------------------- File Operations -------------------
-
-def save_data():
-    data = {
-        "students": {
-            sid: {
-                "name": s.name,
-                "age": s.age,
-                "address": s.address,
-                "student_id": s.student_id,
-                "grades": s.grades,
-                "courses": s.courses
-            } for sid, s in students.items()
-        },
-        "courses": {
-            code: {
-                "course_name": c.course_name,
-                "course_code": c.course_code,
-                "instructor": c.instructor,
-                "students": c.students
-            } for code, c in courses.items()
-        }
-    }
-    with open("data.json", "w") as f:
-        json.dump(data, f, indent=4)
-    print("All student and course data saved successfully.")
-
-
-def load_data():
-    global students, courses
-    try:
-        with open("data.json", "r") as f:
-            data = json.load(f)
-
-        students = {
-            sid: Student(
-                s["name"], s["age"], s["address"], s["student_id"]
-            ) for sid, s in data["students"].items()
-        }
-
-        for sid, s in data["students"].items():
-            students[sid].grades = s["grades"]
-            students[sid].courses = s["courses"]
-
-        courses = {
-            code: Course(
-                c["course_name"], c["course_code"], c["instructor"]
-            ) for code, c in data["courses"].items()
-        }
-
-        for code, c in data["courses"].items():
-            courses[code].students = c["students"]
-
-        print("Data loaded successfully.")
-
-    except FileNotFoundError:
-        print("No saved data found.")
-
-
-# ------------------- Menu Functions -------------------
 
 def add_new_student():
     name = input("Enter Name: ")
@@ -309,12 +240,9 @@ def display_course_details():
         return
     courses[course_code].display_course_info(students)
 
-
-# ------------------- Main Menu -------------------
-
 def main():
     while True:
-        print("\n==== Student Management System ====")
+        print("\n.....Student Management System.....")
         print("1. Add New Student")
         print("2. Add New Course")
         print("3. Enroll Student in Course")

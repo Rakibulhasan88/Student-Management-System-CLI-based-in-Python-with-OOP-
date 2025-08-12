@@ -90,122 +90,6 @@ def enroll_student_in_course():
     courses[course_code].add_student(students[student_id])
     print(f"Student {students[student_id].name} (ID: {student_id}) enrolled in {courses[course_code].course_name} (Code: {course_code}).")
 
-def display_student_details():
-    student_id = input("Enter Student ID: ")
-    if student_id not in students:
-        print("Student not found.")
-        return
-    students[student_id].display_student_info()
-
-def display_course_details():
-    course_code = input("Enter Course Code: ")
-    if course_code not in courses:
-        print("Course not found.")
-        return
-    courses[course_code].display_course_info(students)
-
-
-class Person:
-    def __init__(self, name, age, address):
-        self.name = name
-        self.age = age
-        self.address = address
-
-    def display_person_info(self):
-        print(f"Name: {self.name}")
-        print(f"Age: {self.age}")
-        print(f"Address: {self.address}")
-
-
-class Student(Person):
-    def __init__(self, name, age, address, student_id):
-        super().__init__(name, age, address)
-        self.student_id = student_id
-        self.grades = {}
-        self.courses = []
-
-    def add_grade(self, subject, grade):
-        self.grades[subject] = grade
-
-    def enroll_course(self, course_name):
-        if course_name not in self.courses:
-            self.courses.append(course_name)
-
-    def display_student_info(self):
-        print("Student Information:")
-        super().display_person_info()
-        print(f"ID: {self.student_id}")
-        print(f"Enrolled Courses: {', '.join(self.courses) if self.courses else 'None'}")
-        print(f"Grades: {self.grades if self.grades else 'No grades yet'}")
-
-
-class Course:
-    def __init__(self, course_name, course_code, instructor):
-        self.course_name = course_name
-        self.course_code = course_code
-        self.instructor = instructor
-        self.students = [] 
-
-    def add_student(self, student):
-        if student.student_id not in self.students:
-            self.students.append(student.student_id)
-            student.enroll_course(self.course_name)
-
-    def display_course_info(self, students_dict):
-        print("Course Information:")
-        print(f"Course Name: {self.course_name}")
-        print(f"Code: {self.course_code}")
-        print(f"Instructor: {self.instructor}")
-        print("Enrolled Students:")
-        if self.students:
-            for sid in self.students:
-                print(f"- {students_dict[sid].name}")
-        else:
-            print("No students enrolled yet.")
-
-
-def add_new_student():
-    name = input("Enter Name: ")
-    age = int(input("Enter Age: "))
-    address = input("Enter Address: ")
-    student_id = input("Enter Student ID: ")
-
-    if student_id in students:
-        print("Student ID already exists.")
-        return
-
-    students[student_id] = Student(name, age, address, student_id)
-    print(f"Student {name} (ID: {student_id}) added successfully.")
-
-
-def add_new_course():
-    course_name = input("Enter Course Name: ")
-    course_code = input("Enter Course Code: ")
-    instructor = input("Enter Instructor: ")
-
-    if course_code in courses:
-        print("Course code already exists.")
-        return
-
-    courses[course_code] = Course(course_name, course_code, instructor)
-    print(f"Course {course_name} (Code: {course_code}) created with instructor {instructor}.")
-
-
-def enroll_student_in_course():
-    student_id = input("Enter Student ID: ")
-    course_code = input("Enter Course Code: ")
-
-    if student_id not in students:
-        print("Student not found.")
-        return
-    if course_code not in courses:
-        print("Course not found.")
-        return
-
-    courses[course_code].add_student(students[student_id])
-    print(f"Student {students[student_id].name} (ID: {student_id}) enrolled in {courses[course_code].course_name} (Code: {course_code}).")
-
-
 def add_grade_for_student():
     student_id = input("Enter Student ID: ")
     course_code = input("Enter Course Code: ")
@@ -223,8 +107,7 @@ def add_grade_for_student():
 
     students[student_id].add_grade(courses[course_code].course_name, grade)
     print(f"Grade {grade} added for {students[student_id].name} in {courses[course_code].course_name}.")
-
-
+    
 def display_student_details():
     student_id = input("Enter Student ID: ")
     if student_id not in students:
@@ -232,13 +115,13 @@ def display_student_details():
         return
     students[student_id].display_student_info()
 
-
 def display_course_details():
     course_code = input("Enter Course Code: ")
     if course_code not in courses:
         print("Course not found.")
         return
     courses[course_code].display_course_info(students)
+
 
 def main():
     while True:
